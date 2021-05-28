@@ -1,0 +1,33 @@
+databaseChangelog:
+- preconditions:
+ - runAlways: true
+- changeSet:
+   id: skill_ddl_1.0
+   author: Alexey
+   changes:
+   - createTable:
+     columns:
+      - column
+        name: id
+        type: uuid
+        constraints:
+           primaryKey: true
+           nullable: false
+           tableName: skill
+      - column
+        name: name
+        type: varchar(255)
+        constraints:
+           nullable: false
+      - column
+        name: level
+        type: varchar(64)
+        constraints:
+           nullable: false
+      - column
+        name: priority
+        type: varchar(64)
+        constraints:
+           nullable: false
+
+
