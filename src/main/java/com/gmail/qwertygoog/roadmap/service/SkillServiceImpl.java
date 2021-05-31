@@ -40,7 +40,7 @@ public class SkillServiceImpl implements SkillService {
     }
 
     @Override
-    public Mono<Skill> save(Skill skill) {
+    public Mono<Skill> add(Skill skill) {
         return repository.save(skill);
     }
 
@@ -48,4 +48,5 @@ public class SkillServiceImpl implements SkillService {
     public Mono<UUID> removeById(UUID id) {
         return repository.removeById(id);
     }
+
 }

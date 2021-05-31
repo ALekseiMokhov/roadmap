@@ -21,9 +21,10 @@ public class SkillController {
     private final SkillService service;
 
     @PostMapping("/add")
-    public Mono<Skill> saveSkill(@RequestBody Skill skill) {
-        return service.save(skill);
+    public Mono<Skill> addSkill(@RequestBody Skill skill) {
+        return service.add(skill);
     }
+
 
     @PostMapping("/remove")
     public Mono<UUID> removeSkill(@RequestParam UUID id) {

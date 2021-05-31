@@ -18,7 +18,8 @@ public interface SkillService {
 
     Mono<Skill> findById(UUID id);
 
-    Mono<Skill> save(Skill skill);
+    Mono<Skill> add(Skill skill);
 
     Mono<UUID> removeById(UUID id);
+
 }
