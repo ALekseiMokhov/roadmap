@@ -2,8 +2,8 @@ package com.gmail.qwertygoog.roadmap.model;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
-import reactor.core.publisher.Flux;
 
 import java.util.UUID;
 
@@ -12,6 +12,6 @@ import java.util.UUID;
 public class SkillCluster {
     @Id
     private UUID id;
+    @Column("skill_cluster_name")
     private String name;
-    private Flux<SkillGroup> skillGroups;
 }

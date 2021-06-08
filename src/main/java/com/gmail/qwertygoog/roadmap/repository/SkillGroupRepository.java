@@ -14,6 +14,5 @@ public interface SkillGroupRepository extends ReactiveCrudRepository<SkillGroup,
 
     Mono<SkillGroup> getById(UUID id);
 
-
     Mono<UUID> removeById(UUID id);
 }

@@ -6,13 +6,17 @@ import com.gmail.qwertygoog.roadmap.model.Skill;
 import com.gmail.qwertygoog.roadmap.service.SkillService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.thymeleaf.spring5.context.webflux.IReactiveDataDriverContextVariable;
+import org.thymeleaf.spring5.context.webflux.ReactiveDataDriverContextVariable;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.UUID;
 
-@RestController
+@Controller
 @RequestMapping("/skill")
 @AllArgsConstructor
 @Slf4j
@@ -32,8 +36,10 @@ public class SkillController {
     }
 
     @GetMapping("/get")
-    public Flux<Skill> getAll() {
-        return service.findAll();
+    public String getAll(final Model model) {
+        IReactiveDataDriverContextVariable driverContextVariable = new ReactiveDataDriverContextVariable(service.findAll());
+        model.addAttribute("skills",driverContextVariable);
+        return "index";
     }
 
     @GetMapping("/get/{level}")
@@ -47,8 +53,12 @@ public class SkillController {
     }
 
     @GetMapping("/get/{id}")
-    public Mono<Skill> getSkill(@RequestParam UUID id) {
-        return service.findById(id);
+    public String getSkill(@RequestParam UUID id, final Model model)
+
+    {
+        IReactiveDataDriverContextVariable driverContextVariable = new ReactiveDataDriverContextVariable(service.findAll(),1);
+        model.addAttribute("skill",driverContextVariable);
+        return "index";
     }
 
 }

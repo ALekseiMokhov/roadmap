@@ -4,7 +4,7 @@ databaseChangeLog:
        author: Alexey
        changes:
         - createTable:
-            tableName: skill
+            tableName: skill_cluster
             columns:
                 - column:
                     name: id
@@ -19,22 +19,7 @@ databaseChangeLog:
                     constraints:
                        nullable: false
                 - column:
-                    name: skill_name
+                    name: skill_cluster_name
                     type: varchar(255)
-                    constraints:
-                       nullable: false
-                - column:
-                    name: level
-                    type: varchar(64)
-                    constraints:
-                       nullable: false
-                - column:
-                    name: priority
-                    type: varchar(64)
-                    constraints:
-                       nullable: false
-                - column:
-                    name: skill_group_id
-                    type: uuid
                     constraints:
                        nullable: false
