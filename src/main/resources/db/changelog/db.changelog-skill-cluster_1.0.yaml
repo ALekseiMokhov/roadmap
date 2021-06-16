@@ -13,11 +13,7 @@ databaseChangeLog:
                     constraints:
                        primaryKey: true
                        nullable: false
-                - column:
-                    name: version
-                    type: integer
-                    constraints:
-                       nullable: false
+
                 - column:
                     name: skill_cluster_name
                     type: varchar(255)

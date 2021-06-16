@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link data-th-href="@{/css/bootstrap.min.css}" rel="stylesheet">
+  <link data-th-href="@{/css/main.css}" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+
+  <div class="row">
+    <div id="title">
+      <h1>Reactive java skill_cluster</h1>
+    </div>
+    <table id="clusters" class="table table-striped">
+      <thead>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr class="cluster" data-th-each="cluster : ${clusters}">
+        <td>[[${cluster.id}]]</td>
+        <td>[[${cluster.name}]]</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+</body>
+</html>

@@ -8,6 +8,7 @@ import org.springframework.data.domain.Persistable;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
+import java.util.Objects;
 import java.util.UUID;
 
 @Data
@@ -21,9 +22,13 @@ public class Skill implements Persistable<UUID> {
     private String name;
     private Level level;
     private Priority priority;
+    @Column("skill_group_id")
+    private UUID skillGroupId;
 
     @Override
     public boolean isNew() {
-        return id==null ;
+        boolean result = Objects.isNull(id);
+        this.id = result ? UUID.randomUUID() : this.id;
+        return result;
     }
 }

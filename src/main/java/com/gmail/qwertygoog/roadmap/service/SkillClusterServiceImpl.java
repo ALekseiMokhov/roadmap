@@ -23,4 +23,14 @@ public class SkillClusterServiceImpl implements SkillClusterService{
     public Mono<SkillCluster> findById(UUID id) {
         return repository.findById(id);
     }
+
+    @Override
+    public Mono<UUID> removeById(UUID id) {
+        return repository.removeById(id);
+    }
+
+    @Override
+    public Mono<SkillCluster> add(SkillCluster cluster) {
+        return repository.save(cluster);
+    }
 }

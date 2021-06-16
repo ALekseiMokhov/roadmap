@@ -10,4 +10,9 @@ public interface SkillClusterService {
     Flux<SkillCluster> findAll();
     /*Flux<>*/
     Mono<SkillCluster> findById(UUID id);
+
+    Mono<UUID> removeById(UUID id);
+
+    Mono<SkillCluster> add(SkillCluster cluster);
+
 }

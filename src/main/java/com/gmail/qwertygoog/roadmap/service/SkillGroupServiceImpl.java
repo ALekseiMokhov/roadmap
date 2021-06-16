@@ -26,4 +26,9 @@ public class SkillGroupServiceImpl implements SkillGroupService{
     public Mono<SkillGroup> findById(UUID id) {
         return repository.findById(id);
     }
+
+    @Override
+    public Mono<SkillGroup> add(SkillGroup skillGroup) {
+        return repository.save(skillGroup);
+    }
 }

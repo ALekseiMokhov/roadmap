@@ -11,4 +11,6 @@ public interface SkillGroupService {
     Flux<SkillGroup> findAll();
 
     Mono<SkillGroup> findById(UUID id);
+
+    Mono<SkillGroup> add(SkillGroup skillGroup);
 }

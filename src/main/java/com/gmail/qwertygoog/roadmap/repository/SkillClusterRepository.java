@@ -15,4 +15,6 @@ public interface SkillClusterRepository extends ReactiveCrudRepository<SkillClus
     Mono<SkillCluster> getById(UUID id);
 
     Mono<UUID> removeById(UUID id);
+
+    Mono<UUID> removeByName(String name);
 }

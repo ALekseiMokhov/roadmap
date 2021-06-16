@@ -12,7 +12,7 @@
 
     <div class="row">
         <div id="title">
-            <h1>Reactive Thymeleaf</h1>
+            <h1>Reactive java skills</h1>
         </div>
         <table id="allSkills" class="table table-striped">
             <thead>
@@ -20,6 +20,7 @@
                 <th>Name</th>
                 <th>Level</th>
                 <th>Priority</th>
+                <th>Skill Group</th>
             </tr>
             </thead>
             <tbody>
@@ -27,11 +28,13 @@
                 <td>[[${skill.name}]]</td>
                 <td>[[${skill.level}]]</td>
                 <td>[[${skill.priority}]]</td>
+                <td>[[${skill.skillGroupId}]]</td>
             </tr>
             </tbody>
         </table>
     </div>
 
 </div>
+
 </body>
 </html>

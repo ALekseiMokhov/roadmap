@@ -1,9 +1,7 @@
 package com.gmail.qwertygoog.roadmap.controller;
 
-import com.gmail.qwertygoog.roadmap.model.Level;
-import com.gmail.qwertygoog.roadmap.model.Priority;
-import com.gmail.qwertygoog.roadmap.model.Skill;
-import com.gmail.qwertygoog.roadmap.service.SkillService;
+import com.gmail.qwertygoog.roadmap.model.SkillCluster;
+import com.gmail.qwertygoog.roadmap.service.SkillClusterService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -15,24 +13,21 @@ import org.thymeleaf.spring5.context.webflux.ReactiveDataDriverContextVariable;
 import java.util.UUID;
 
 @Controller
-@RequestMapping("/skill")
+@RequestMapping("/cluster")
 @AllArgsConstructor
 @Slf4j
-public class SkillController {
-
-    private static final String TEMPLATE ="skills";
-
-    private final SkillService service;
+public class SkillClusterController {
+    private static final String TEMPLATE = "skill_cluster";
+    private final SkillClusterService service;
 
     @PostMapping("/add")
-    public String addSkill(@RequestBody Skill skill) {
-        service.add(skill);
+    public String addSkillCluster(@RequestBody SkillCluster cluster) {
+        service.add(cluster);
         return TEMPLATE;
     }
 
-
     @PostMapping("/remove")
-    public String removeSkill(@RequestParam UUID id) {
+    public String removeSkillCluster(@RequestParam UUID id) {
         service.removeById(id);
         return TEMPLATE;
     }
@@ -40,26 +35,14 @@ public class SkillController {
     @GetMapping("/get")
     public String getAll(final Model model) {
         IReactiveDataDriverContextVariable driverContextVariable = new ReactiveDataDriverContextVariable(service.findAll());
-        model.addAttribute(TEMPLATE, driverContextVariable);
-        return TEMPLATE;
-    }
-
-    @GetMapping("/get/{level}")
-    public String getAllByLvl(@RequestParam Level level) {
-        service.findAllByLevel(level);
-        return TEMPLATE;
-    }
-
-    @GetMapping("/get/{priority}")
-    public String getAllByPriority(@RequestParam Priority priority) {
-        service.findAllByPriority(priority);
+        model.addAttribute("clusters", driverContextVariable);
         return TEMPLATE;
     }
 
     @GetMapping("/get/{id}")
-    public String getSkill(@RequestParam UUID id, final Model model) {
+    public String getSkillCluster(@RequestParam UUID id, final Model model) {
         IReactiveDataDriverContextVariable driverContextVariable = new ReactiveDataDriverContextVariable(service.findAll(), 1);
-        model.addAttribute("skill", driverContextVariable);
+        model.addAttribute("cluster", driverContextVariable);
         return TEMPLATE;
     }
 
