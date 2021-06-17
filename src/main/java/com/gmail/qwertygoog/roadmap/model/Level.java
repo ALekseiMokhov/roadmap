@@ -6,9 +6,9 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum Level {
-    BEGINNER(1),
-    INTERMEDIATE(2),
-    PROFICIENT(3),
-    ADVANCED(4);
+    A(1),
+    B(2),
+    C(3),
+    D(4);
     private int point;
 }

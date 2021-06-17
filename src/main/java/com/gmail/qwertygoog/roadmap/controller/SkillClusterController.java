@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.spring5.context.webflux.IReactiveDataDriverContextVariable;
 import org.thymeleaf.spring5.context.webflux.ReactiveDataDriverContextVariable;
@@ -13,7 +14,7 @@ import org.thymeleaf.spring5.context.webflux.ReactiveDataDriverContextVariable;
 import java.util.UUID;
 
 @Controller
-@RequestMapping("/cluster")
+@RequestMapping("/")
 @AllArgsConstructor
 @Slf4j
 public class SkillClusterController {
@@ -21,8 +22,12 @@ public class SkillClusterController {
     private final SkillClusterService service;
 
     @PostMapping("/add")
-    public String addSkillCluster(@RequestBody SkillCluster cluster) {
+    public String addSkillCluster(@RequestParam String name, ModelMap model) {
+        SkillCluster cluster = new SkillCluster(null, name);
         service.add(cluster);
+        IReactiveDataDriverContextVariable reactiveDataDrivenMode =
+                new ReactiveDataDriverContextVariable(service.findAll(), 1);
+        model.addAttribute("clusters", reactiveDataDrivenMode);
         return TEMPLATE;
     }
 
@@ -32,7 +37,7 @@ public class SkillClusterController {
         return TEMPLATE;
     }
 
-    @GetMapping("/get")
+    @GetMapping("/")
     public String getAll(final Model model) {
         IReactiveDataDriverContextVariable driverContextVariable = new ReactiveDataDriverContextVariable(service.findAll());
         model.addAttribute("clusters", driverContextVariable);

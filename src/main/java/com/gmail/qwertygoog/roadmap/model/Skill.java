@@ -22,8 +22,8 @@ public class Skill implements Persistable<UUID> {
     private String name;
     private Level level;
     private Priority priority;
-    @Column("skill_group_id")
-    private UUID skillGroupId;
+    @Column("skill_group_name")
+    private String skillGroupName;
 
     @Override
     public boolean isNew() {

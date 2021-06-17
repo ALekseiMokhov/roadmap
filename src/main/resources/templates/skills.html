@@ -8,7 +8,7 @@
     <link data-th-href="@{/css/main.css}" rel="stylesheet">
 </head>
 <body>
-<div class="container">
+<div class="container p-3 mb-2 bg-info text-white">
 
     <div class="row">
         <div id="title">
@@ -33,7 +33,16 @@
             </tbody>
         </table>
     </div>
-
+    <div>
+        <h4>add skill</h4>
+        <form th:action="@{/skill/add}" method="post">
+            <p>Name: <input type="text" field="name" placeholder="choose skill name"/></p>
+            <p>Level: <input type="text" field="level" placeholder="choose your current skill lvl"/></p>
+            <p>Priority: <input type="text" field="priority" placeholder="choose the skill priority"/></p>
+            <p>SkillGroup: <input type="text" field="skillGroupName" placeholder="bind skill to skill group"/></p>
+            <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+        </form>
+    </div>
 </div>
 
 </body>

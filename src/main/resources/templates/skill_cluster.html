@@ -8,13 +8,13 @@
   <link data-th-href="@{/css/main.css}" rel="stylesheet">
 </head>
 <body>
-<div class="container">
+<div class="container p-3 mb-2 bg-info text-white">
 
   <div class="row">
     <div id="title">
-      <h1>Reactive java skill_cluster</h1>
+      <h1>Reactive java skill cluster</h1>
     </div>
-    <table id="clusters" class="table table-striped">
+    <table id="headers-clusters" class="table table-striped">
       <thead>
       <tr>
         <th>Id</th>
@@ -29,7 +29,13 @@
       </tbody>
     </table>
   </div>
-
+    <div>
+        <h4>add cluster</h4>
+        <form action="#" th:action="@{/add}" method="post">
+            <p>Name: <input type="text" field="name" placeholder="choose cluster name"/></p>
+            <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+        </form>
+    </div>
 </div>
 
 </body>

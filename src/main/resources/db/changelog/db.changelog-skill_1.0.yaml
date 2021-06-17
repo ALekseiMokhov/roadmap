@@ -30,7 +30,7 @@ databaseChangeLog:
                     constraints:
                        nullable: false
                 - column:
-                    name: skill_group_id
-                    type: uuid
+                    name: skill_group_name
+                    type: varchar(64)
                     constraints:
                        nullable: false
