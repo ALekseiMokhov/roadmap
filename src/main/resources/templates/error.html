@@ -1,14 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link data-th-href="@{/css/bootstrap.min.css}" rel="stylesheet">
-    <link data-th-href="@{/css/main.css}" rel="stylesheet">
+    <div th:insert="~{header :: header}"></div>
 </head>
-<body>
+<body class="container p-3 mb-2 bg-info text-white">
+<h1 style="color:purple"> Error Page</h1>
 
+<!--  As we are using Thymeleaf, you might consider using
+      ${#httpServletRequest.requestURL}. But that returns the path
+      to this error page.  Hence we explicitly add the url to the
+      Model in some of the example code. -->
+<p th:if="${url}">
+    <b>Page:</b> <span th:text="${url}">Page URL</span>
+</p>
+
+<p id='created' th:if="${timestamp}">
+    <b>Occurred:</b> <span th:text="${timestamp}">Timestamp</span>
+</p>
+
+<p th:if="${status}">
+    <b>Response Status:</b> <span th:text="${status}">status-code</span> <span
+        th:if="${error}" th:text="'('+${error}+')'">error ...</span>
+</p>
+
+<p>Application has encountered an error. Please contact support on
+    ...</p>
+
+<p>Support may ask you to right click to view page source.</p>
+
+<!--
+  // Hidden Exception Details  - this is not a recommendation, but here is
+  // how you hide an exception in the page using Thymeleaf
+  -->
+<div th:remove="tag" th:utext="'&lt;!--'"></div>
+<div th:remove="tag" th:utext="'Failed URL: ' +  ${url}">${url}</div>
+<div th:remove="tag" th:utext="'Exception: ' + ${exception.message}">${exception.message}</div>
+<ul th:remove="tag">
+    <li th:each="ste : ${exception.stackTrace}" th:remove="tag"><span
+            th:remove="tag" th:utext="${ste}">${ste}</span></li>
+</ul>
+<div th:remove="tag" th:utext="'--&gt;'"></div>
+
+
+<div th:substituteby="footer :: copy"></div>
 </body>
 </html>

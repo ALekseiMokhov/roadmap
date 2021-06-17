@@ -7,47 +7,64 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ServerWebExchange;
 import org.thymeleaf.spring5.context.webflux.IReactiveDataDriverContextVariable;
 import org.thymeleaf.spring5.context.webflux.ReactiveDataDriverContextVariable;
+import reactor.core.publisher.Mono;
 
 import java.util.UUID;
 
 @Controller
-@RequestMapping("/")
 @AllArgsConstructor
 @Slf4j
 public class SkillClusterController {
     private static final String TEMPLATE = "skill_cluster";
     private final SkillClusterService service;
 
-    @PostMapping("/add")
-    public String addSkillCluster(@RequestParam String name, ModelMap model) {
-        SkillCluster cluster = new SkillCluster(null, name);
+/*    @RequestMapping("/")
+    public Mono<String> processRequest( BindingResult bindingResult, ServerWebExchange exchange) {
+        SkillCluster cluster = new SkillCluster();
         service.add(cluster);
-        IReactiveDataDriverContextVariable reactiveDataDrivenMode =
-                new ReactiveDataDriverContextVariable(service.findAll(), 1);
-        model.addAttribute("clusters", reactiveDataDrivenMode);
-        return TEMPLATE;
+        return exchange.getFormData().flatMap(
+                data -> {
+                    if (data.containsKey("save")) {
+                        return saveCluster( bindingResult);
+                    }
+                    if (data.containsKey("addRow")) {
+                        return addRow( bindingResult);
+                    }
+                    if (data.containsKey("removeRow")) {
+                        UUID id = UUID.fromString(data.getFirst("removeRow"));
+                        return removeSkillCluster( bindingResult, id);
+                    }
+                }
+        );
+    }*/
+
+    @RequestMapping(value="/add", params={"save"})
+    public String saveCluster( SkillCluster skillCluster ,  BindingResult bindingResult,  ModelMap model) {
+        if (bindingResult.hasErrors()) {
+            return TEMPLATE;
+        }
+        this.service.add(skillCluster);
+        return "redirect:/" +TEMPLATE;
     }
 
-    @PostMapping("/remove")
-    public String removeSkillCluster(@RequestParam UUID id) {
+    public String removeSkillCluster(BindingResult bindingResult, @RequestParam UUID id) {
         service.removeById(id);
         return TEMPLATE;
     }
-
-    @GetMapping("/")
+ @RequestMapping(value="/")
     public String getAll(final Model model) {
         IReactiveDataDriverContextVariable driverContextVariable = new ReactiveDataDriverContextVariable(service.findAll());
         model.addAttribute("clusters", driverContextVariable);
         return TEMPLATE;
     }
 
-    @GetMapping("/get/{id}")
-    public String getSkillCluster(@RequestParam UUID id, final Model model) {
+    public String getSkillCluster(@RequestParam UUID id) {
         IReactiveDataDriverContextVariable driverContextVariable = new ReactiveDataDriverContextVariable(service.findAll(), 1);
-        model.addAttribute("cluster", driverContextVariable);
         return TEMPLATE;
     }
 
