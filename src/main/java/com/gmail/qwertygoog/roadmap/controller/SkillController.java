@@ -49,7 +49,7 @@ public class SkillController {
 
     @GetMapping("")
     public String getAll(final Model model) {
-        IReactiveDataDriverContextVariable driverContextVariable = new ReactiveDataDriverContextVariable(service.findAll());
+        IReactiveDataDriverContextVariable driverContextVariable = new ReactiveDataDriverContextVariable(service.findAll(),100);
         model.addAttribute(TEMPLATE, driverContextVariable);
         return TEMPLATE;
     }

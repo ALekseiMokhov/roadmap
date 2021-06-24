@@ -19,6 +19,7 @@ import java.util.UUID;
 @Controller
 @AllArgsConstructor
 @Slf4j
+@RequestMapping("/cluster")
 public class SkillClusterController {
     private static final String TEMPLATE = "skill_cluster";
     private final SkillClusterService service;
@@ -43,8 +44,8 @@ public class SkillClusterController {
         );
     }*/
 
-    @RequestMapping(value="/add", params={"save"})
-    public String saveCluster( SkillCluster skillCluster ,  BindingResult bindingResult,  ModelMap model) {
+   /* @PostMapping(value="/add", params={"save"})*/
+    public String saveCluster( SkillCluster skillCluster ,  BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return TEMPLATE;
         }
@@ -56,9 +57,9 @@ public class SkillClusterController {
         service.removeById(id);
         return TEMPLATE;
     }
- @RequestMapping(value="/")
+ @RequestMapping(value="")
     public String getAll(final Model model) {
-        IReactiveDataDriverContextVariable driverContextVariable = new ReactiveDataDriverContextVariable(service.findAll());
+        IReactiveDataDriverContextVariable driverContextVariable = new ReactiveDataDriverContextVariable(service.findAll(),100);
         model.addAttribute("clusters", driverContextVariable);
         return TEMPLATE;
     }
