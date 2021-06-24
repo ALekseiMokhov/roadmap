@@ -14,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.spring5.context.webflux.IReactiveDataDriverContextVariable;
 import org.thymeleaf.spring5.context.webflux.ReactiveDataDriverContextVariable;
+import reactor.core.publisher.Mono;
 
 import java.util.UUID;
 
@@ -28,18 +29,11 @@ public class SkillController {
     private final SkillService service;
 
     @PostMapping("/add")
-    public String addSkill(@RequestParam String name,
-                           @RequestParam (required = false,defaultValue = "A")String level,
-                           @RequestParam (required = false,defaultValue = "LOW")String priority,
-                           @RequestParam (required = false,defaultValue = "Java lang")String skillGroupName,
-                           Model model){
-        log.info(name + "   was set");
-        service.add(new Skill(null,name,Level.valueOf(level),Priority.valueOf(priority),skillGroupName));
-        model.addAttribute("skills",service.findAll());
+    public Mono<String> addSkill(@ModelAttribute Skill skill){
+        return service.add(skill)
+                .then(Mono.just(TEMPLATE));
 
-        return TEMPLATE;
     }
-
 
     @PostMapping("/remove")
     public String removeSkill(@RequestParam UUID id) {
@@ -49,8 +43,8 @@ public class SkillController {
 
     @GetMapping("")
     public String getAll(final Model model) {
-        IReactiveDataDriverContextVariable driverContextVariable = new ReactiveDataDriverContextVariable(service.findAll());
-        model.addAttribute(TEMPLATE, driverContextVariable);
+        IReactiveDataDriverContextVariable driverContextVariable = new ReactiveDataDriverContextVariable(service.findAll(),100);
+        model.addAttribute("skills", driverContextVariable);
         return TEMPLATE;
     }
 

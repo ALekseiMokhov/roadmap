@@ -27,9 +27,9 @@ public class SkillGroupController {
         return TEMPLATE;
     }
 
-    @GetMapping("/get")
+    @GetMapping("")
     public String getAll(final Model model) {
-        IReactiveDataDriverContextVariable driverContextVariable = new ReactiveDataDriverContextVariable(service.findAll());
+        IReactiveDataDriverContextVariable driverContextVariable = new ReactiveDataDriverContextVariable(service.findAll(),100);
         model.addAttribute("groups", driverContextVariable);
         return TEMPLATE;
     }

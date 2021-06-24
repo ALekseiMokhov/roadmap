@@ -41,6 +41,7 @@ public class SkillServiceImpl implements SkillService {
 
     @Override
     public Mono<Skill> add(Skill skill) {
+        log.debug("SKILL IS ______ "+ skill.getName() + "  ____WAS SAVED");
         return repository.save(skill);
     }
 

@@ -7,11 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link data-th-href="@{/css/bootstrap.min.css}" rel="stylesheet">
     <link data-th-href="@{/css/main.css}" rel="stylesheet">
+
 </head>
 <body>
 <div class="container p-3 mb-2 bg-info text-white">
-
+    <button><a href="/">home</a></button>
     <div class="row">
+
         <div id="title">
             <h1>Reactive java skill cluster</h1>
         </div>
@@ -29,23 +31,6 @@
             </tr>
             </tbody>
         </table>
-    </div>
-    <div>
-
-        <h4>add cluster</h4>
-        <form action="#" th:action="@{/add}" th:object="${skillCluster}" method="post">
-            <fieldset>
-                <legend> addddddd java skillllll</legend>
-                <ul th:if="${#fields.hasErrors('*')}" class="errorlist">
-                    <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Input is incorrect</li>
-                </ul>
-
-                <p>id: <input th:type="text" th:field="${skillCluster.id}" placeholder="it must be null!!!"/></p>
-                <p>Name: <input th:type="text" th:field="${skillCluster.name}" placeholder="choose cluster name"/></p>
-                <p><input type="submit" value="Submit"/> <input type="reset" value="Reset"/></p>
-            </fieldset>
-        </form>
-
     </div>
 </div>
 
