@@ -6,10 +6,8 @@ import com.gmail.qwertygoog.roadmap.model.Skill;
 import com.gmail.qwertygoog.roadmap.service.SkillService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.spring5.context.webflux.IReactiveDataDriverContextVariable;
@@ -25,43 +23,51 @@ import java.util.UUID;
 public class SkillController {
 
     private static final String TEMPLATE = "skills";
+    private static final String ERROR = "error";
 
     private final SkillService service;
 
     @PostMapping("/add")
-    public Mono<String> addSkill(@ModelAttribute Skill skill){
+    public Mono<String> addSkill(@ModelAttribute Skill skill, Model model) {
+        log.info("skill " + skill.getName() + " has been added!");
         return service.add(skill)
+                .log("hook on flux")
+                .flatMap(sink -> Mono.just(model.addAttribute(TEMPLATE, new ReactiveDataDriverContextVariable(service.findAll(), 10))))
+                .log("another hook")
                 .then(Mono.just(TEMPLATE));
 
     }
 
-    @PostMapping("/remove")
-    public String removeSkill(@RequestParam UUID id) {
-        service.removeById(id);
-        return TEMPLATE;
-    }
-
     @GetMapping("")
-    public String getAll(final Model model) {
-        IReactiveDataDriverContextVariable driverContextVariable = new ReactiveDataDriverContextVariable(service.findAll(),100);
-        model.addAttribute("skills", driverContextVariable);
-        return TEMPLATE;
+    public Mono<String> getAll(Model model) {
+        return Mono.just(model)
+                .flatMap(m -> {
+                    m.addAttribute("skills", new ReactiveDataDriverContextVariable(service.findAll(), 10));
+                    m.addAttribute("skill", new Skill());
+                    return Mono.just(TEMPLATE);
+
+                }).onErrorReturn(ERROR);
+    }
+    @PostMapping("/lvl")
+    public Mono<String> getAllByLvl(@ModelAttribute ("Level")Level level, Model model) {
+        log.info("________________________" +level);
+        return Mono.just(model)
+                .flatMap(m -> {
+                    log.info("enum is " + level);
+                    m.addAttribute("skill",new Skill());
+                    m.addAttribute("skills",new ReactiveDataDriverContextVariable(service.findAllByLevel(level)));
+                    return Mono.just(TEMPLATE);
+                });
     }
 
-    @GetMapping("/get/{level}")
-    public String getAllByLvl(@RequestParam Level level) {
-        service.findAllByLevel(level);
-        return TEMPLATE;
-    }
-
-    @GetMapping("/get/{priority}")
-    public String getAllByPriority(@RequestParam Priority priority) {
+    @GetMapping("/priority")
+    public String getAllByPriority(@ModelAttribute Priority priority, Model model) {
         service.findAllByPriority(priority);
         return TEMPLATE;
     }
 
-    @GetMapping("/get/{id}")
-    public String getSkill(@RequestParam UUID id, final Model model) {
+    @GetMapping("/get")
+    public String getSkill(@ModelAttribute UUID id, Model model) {
         IReactiveDataDriverContextVariable driverContextVariable = new ReactiveDataDriverContextVariable(service.findAll(), 1);
         model.addAttribute("skill", driverContextVariable);
         return TEMPLATE;

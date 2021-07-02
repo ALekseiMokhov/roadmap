@@ -10,12 +10,13 @@
 </head>
 <body>
 <div class="container p-3 mb-2 bg-info text-white">
-    <button ><a href="/">home</a></button>
+    <button><a href="/">home</a></button>
+    <button><a href="/admin">admin</a></button>
     <div class="row">
         <div id="title">
             <h1>Reactive java skills</h1>
         </div>
-        <table id="allSkills" class="table table-striped">
+        <table id="allSkills" class="table">
             <thead>
             <tr>
                 <th>Name</th>
@@ -35,16 +36,28 @@
         </table>
     </div>
     <div>
-        <h4>add skill</h4>
-        <form action="#" th:action="@{/skill/add}" th:object="${skill}" method="post">
-            <p>Name: <input type="text" th:field="${skill.name}" placeholder="choose skill name"/></p>
-            <p>Level: <input type="text" th:field="${skill.level}" placeholder="choose skill level"/></p>
-            <p>Priority: <input type="text" th:field="${skill.priority}" placeholder="choose skill priority"/></p>
-            <p>Group Id: <input type="text" th:field="${skill.skillGroupName}" placeholder="choose skill priority"/></p>
-            <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+        <h4>filter by lvl</h4>
+        <form th:action="@{/skill/lvl}" th:object="${Level}" method="post">
+            <select>
+                <option value ="${Level.A}">A</option>
+                <option value ="B">B</option>
+                <option value ="C">C</option>
+                <option value ="D">D</option>
+                <input type="submit" value="Submit"/>
+            </select>
+
         </form>
     </div>
-</div>
-
+    <div>
+        <h4>add skill</h4>
+        <form th:action="@{/skill/add}" th:object="${skill}" method="post">
+            <input type="text" th:field="${skill.name}" placeholder="choose skill name"/>
+            <input type="text" th:field="${skill.level}" placeholder="choose skill level"/>
+            <input type="text" th:field="${skill.priority}" placeholder="choose skill priority"/>
+            <input type="text" th:field="${skill.skillGroupName}" placeholder="choose skill groupID"/>
+            <input type="submit" value="Submit"/> <input type="reset" value="Reset"/>
+        </form>
+    </div>
+    <div th:insert="~{fragments/footer}" }></div>
 </body>
 </html>

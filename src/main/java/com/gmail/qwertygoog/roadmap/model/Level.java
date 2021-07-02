@@ -1,10 +1,9 @@
 package com.gmail.qwertygoog.roadmap.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.*;
 
 @Getter
-@AllArgsConstructor
+@NoArgsConstructor
 public enum Level {
     A,
     B,
