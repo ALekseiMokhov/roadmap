@@ -37,14 +37,9 @@
     </div>
     <div>
         <h4>filter by lvl</h4>
-        <form th:action="@{/skill/lvl}" th:object="${skill}" method="get">
-            <select>
-                <option th:each="literal: ${T(com.gmail.qwertygoog.roadmap.model.Level).values}"
-                  th:field="${skill.level}" th:value="${literal}"   th:text="${literal}">
-                </option>
-                <input type="submit" value="Submit"/>
-            </select>
-
+        <form th:action="@{/skill/lvl}" th:object="${skill}" method="post">
+          <input type="text" th:field="*{level.getVal}">
+         <input type="submit" value="Submit" />
         </form>
     </div>
     <div>

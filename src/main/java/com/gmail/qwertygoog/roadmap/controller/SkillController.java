@@ -48,10 +48,10 @@ public class SkillController {
 
                 }).onErrorReturn(ERROR);
     }
-    @GetMapping("/lvl")
-    public Mono<String> getAllByLvl(@RequestParam Skill  lvl, Model model) {
+    @PostMapping("/lvl")
+    public Mono<String> getAllByLvl(@ModelAttribute Skill skill, Model model) {
         return Mono.just(model)
-                .doOnNext(e -> log.info(lvl.toString()))
+                .doOnNext(e -> log.info(skill.toString()))
                 .flatMap(m -> {
 
                     m.addAttribute("skill",new Skill());
