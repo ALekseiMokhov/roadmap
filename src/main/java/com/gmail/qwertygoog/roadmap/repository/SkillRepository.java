@@ -22,4 +22,6 @@ public interface SkillRepository extends ReactiveCrudRepository<Skill, UUID> {
     Flux<Skill> findAllByPriority(Priority priority);
 
     Mono<Skill> findByName(String name);
+
+    Mono<Boolean> existsSkillByName(String name);
 }

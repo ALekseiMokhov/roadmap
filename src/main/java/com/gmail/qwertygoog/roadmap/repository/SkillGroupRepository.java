@@ -10,9 +10,11 @@ import java.util.UUID;
 @Repository
 public interface SkillGroupRepository extends ReactiveCrudRepository<SkillGroup, UUID> {
 
-    Mono<SkillGroup> getByName(String name);
+    Mono<SkillGroup> findByName(String name);
 
-    Mono<SkillGroup> getById(UUID id);
+    Mono<SkillGroup> findById(UUID id);
 
     Mono<UUID> removeById(UUID id);
+
+    Mono<String> removeByName(String name);
 }

@@ -7,11 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link data-th-href="@{/css/bootstrap.min.css}" rel="stylesheet">
     <link data-th-href="@{/css/main.css}" rel="stylesheet">
+        <div th:insert="~{fragments/header}"></div>
 </head>
 <body>
 <div class="container p-3 mb-2 bg-info text-white">
-    <button><a href="/">home</a></button>
-    <button><a href="/admin">admin</a></button>
     <div class="row">
         <div id="title">
             <h1>Reactive java skills</h1>
@@ -63,15 +62,15 @@
             <input type="text" th:field="${skill.name}" placeholder="choose skill name"/>
             <input type="text" th:field="${skill.level}" placeholder="choose skill level"/>
             <input type="text" th:field="${skill.priority}" placeholder="choose skill priority"/>
-            <input type="text" th:field="${skill.skillGroupName}" placeholder="choose skill groupID"/>
+            <input type="text" th:field="${skill.skillGroupName}" placeholder="choose skill group name"/>
             <input type="submit" value="Submit"/> <input type="reset" value="Reset"/>
         </form>
     </div>
       <div>
-        <h4 style="color:#5B3A56">delete by name</h4>
+        <h4>delete by name</h4>
         <form th:action="@{/skill/delete}" th:object="${skill}" method="post">
             <input type="text" th:field="${skill.name}" placeholder="DELETE by skill name"/>
-            <input type="submit" value="Submit"/>
+            <input type="submit" value="Submit" />
         </form>
     </div>
     <div th:insert="~{fragments/footer}" }></div>

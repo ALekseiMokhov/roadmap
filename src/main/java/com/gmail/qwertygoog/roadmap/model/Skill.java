@@ -31,4 +31,17 @@ public class Skill implements Persistable<UUID> {
         this.id = result ? UUID.randomUUID() : this.id;
         return result;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Skill)) return false;
+        Skill skill = (Skill) o;
+        return getName().equals(skill.getName()) && getLevel() == skill.getLevel() && getPriority() == skill.getPriority() && Objects.equals(getSkillGroupName(), skill.getSkillGroupName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName(), getLevel(), getPriority(), getSkillGroupName());
+    }
 }

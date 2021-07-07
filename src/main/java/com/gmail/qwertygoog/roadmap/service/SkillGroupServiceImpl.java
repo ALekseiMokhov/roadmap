@@ -31,4 +31,9 @@ public class SkillGroupServiceImpl implements SkillGroupService{
     public Mono<SkillGroup> add(SkillGroup skillGroup) {
         return repository.save(skillGroup);
     }
+
+    @Override
+    public Mono<String> removeByName(SkillGroup group) {
+        return repository.removeByName(group.getName());
+    }
 }
