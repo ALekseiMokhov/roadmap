@@ -19,7 +19,7 @@ databaseChangeLog:
                     constraints:
                        nullable: false
                 - column:
-                    name: skill_cluster_id
-                    type: uuid
+                    name: skill_cluster_name
+                    type: varchar(255)
                     constraints:
-                       nullable: false
+                       nullable: true

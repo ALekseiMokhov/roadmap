@@ -12,8 +12,8 @@ import java.util.UUID;
 public class SkillGroup {
     @Id
     private UUID id;
-    @Column("skill_cluster_id")
-    private UUID clusterId;
+    @Column("skill_cluster_name")
+    private String clusterName;
     @Column("skill_group_name")
     private String name;
 

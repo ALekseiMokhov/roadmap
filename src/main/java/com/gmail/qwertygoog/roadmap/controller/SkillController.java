@@ -32,10 +32,13 @@ public class SkillController {
 
     @PostMapping("/add")
     public Mono<String> addSkill(@ModelAttribute Skill skill, Model model) {
-        log.info("skill " + skill.getName() + " has been added!");
         return service.add(skill)
-                .flatMap(sink -> Mono.just(model.addAttribute(ATTRIBUTE_SKILL, new ReactiveDataDriverContextVariable(service.findAll(), 10))))
-                .then(Mono.just(TEMPLATE))
+                .flatMap(m -> {
+                            model.addAttribute(ATTRIBUTE_SKILLS, new ReactiveDataDriverContextVariable(service.findAll(), 10));
+                            model.addAttribute(ATTRIBUTE_SKILL, new Skill());
+                            return Mono.just(TEMPLATE);
+                        }
+                )
                 .onErrorReturn(ERROR);
 
     }
@@ -52,12 +55,12 @@ public class SkillController {
     }
 
     @PostMapping("/lvl")
-    public Mono<String> getAllByLvl(@ModelAttribute Skill skill, Model model) {
+    public Mono<String> getAllByLvl(@ModelAttribute Skill skillByLvl, Model model) {
 
         return Mono.just(model)
                 .flatMap(m -> {
                     model.addAttribute(ATTRIBUTE_SKILL, new Skill());
-                    model.addAttribute(ATTRIBUTE_SKILLS, new ReactiveDataDriverContextVariable(service.findAllByLevel(skill.getLevel())));
+                    model.addAttribute(ATTRIBUTE_SKILLS, new ReactiveDataDriverContextVariable(service.findAllByLevel(skillByLvl.getLevel())));
                     return Mono.just(TEMPLATE);
                 })
                 .onErrorReturn(ERROR);
@@ -89,7 +92,8 @@ public class SkillController {
         return Mono.just(model)
                 .flatMap(
                         m -> {
-                            IReactiveDataDriverContextVariable driverContextVariable = new ReactiveDataDriverContextVariable(service.removeByName(skill.getName()).flux(), 1);
+                            service.removeByName(skill.getName());
+                            IReactiveDataDriverContextVariable driverContextVariable = new ReactiveDataDriverContextVariable(service.findAll());
                             model.addAttribute(ATTRIBUTE_SKILL, new Skill());
                             model.addAttribute(ATTRIBUTE_SKILLS, driverContextVariable);
                             return Mono.just(TEMPLATE);

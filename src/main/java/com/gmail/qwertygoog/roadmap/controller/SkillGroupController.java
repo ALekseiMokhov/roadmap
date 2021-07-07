@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.spring5.context.webflux.IReactiveDataDriverContextVariable;
 import org.thymeleaf.spring5.context.webflux.ReactiveDataDriverContextVariable;
+import reactor.core.publisher.Mono;
 
 import java.util.UUID;
 
@@ -18,26 +19,44 @@ import java.util.UUID;
 @Slf4j
 public class SkillGroupController {
     private static final String TEMPLATE = "skill_group";
+    private static final String ERROR = "error";
     private final SkillGroupService service;
 
 
     @PostMapping("/add")
-    public String addSkillCluster(@RequestBody SkillGroup group) {
-        service.add(group);
-        return TEMPLATE;
+    public Mono<String> addSkillGroup(@ModelAttribute SkillGroup group, Model model) {
+        log.info("group is: " + group.getName());
+        return Mono.just(model)
+                .flatMap(
+                        m -> {
+                            service.add(group);
+                            m.addAttribute("group", group);
+                            m.addAttribute("groups", new ReactiveDataDriverContextVariable(service.findAll(), 10));
+                            return Mono.just(TEMPLATE);
+                        }
+                ).onErrorReturn(ERROR);
+    }
+
+    @PostMapping("/delete")
+    public Mono<String> removeSkillGroup(@ModelAttribute SkillGroup group, Model model) {
+
+        return Mono.just(model)
+                .flatMap(m -> {
+                    service.removeByName(group);
+                    model.addAttribute("groups", new ReactiveDataDriverContextVariable(service.findAll(), 100));
+                    return Mono.just(TEMPLATE);
+                }).onErrorReturn(ERROR);
+
     }
 
     @GetMapping("")
-    public String getAll(final Model model) {
-        IReactiveDataDriverContextVariable driverContextVariable = new ReactiveDataDriverContextVariable(service.findAll(),100);
-        model.addAttribute("groups", driverContextVariable);
-        return TEMPLATE;
+    public Mono<String> getAll(Model model) {
+        return Mono.just(model)
+                .flatMap(m -> {
+                    model.addAttribute("groups", new ReactiveDataDriverContextVariable(service.findAll(), 100));
+                    model.addAttribute("group", new SkillGroup());
+                    return Mono.just(TEMPLATE);
+                }).onErrorReturn(ERROR);
     }
 
-    @GetMapping("/get/{id}")
-    public String getSkillCluster(@RequestParam UUID id, final Model model) {
-        IReactiveDataDriverContextVariable driverContextVariable = new ReactiveDataDriverContextVariable(service.findAll(), 1);
-        model.addAttribute("group", driverContextVariable);
-        return TEMPLATE;
-    }
 }

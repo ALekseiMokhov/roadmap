@@ -13,4 +13,6 @@ public interface SkillGroupService {
     Mono<SkillGroup> findById(UUID id);
 
     Mono<SkillGroup> add(SkillGroup skillGroup);
+
+    Mono<String> removeByName(SkillGroup group);
 }

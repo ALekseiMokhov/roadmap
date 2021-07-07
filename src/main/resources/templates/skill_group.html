@@ -6,30 +6,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link data-th-href="@{/css/bootstrap.min.css}" rel="stylesheet">
     <link data-th-href="@{/css/main.css}" rel="stylesheet">
+    <div th:insert="~{fragments/header}"></div>
+
 </head>
 <body>
 <div class="container p-3 mb-2 bg-info text-white">
-    <button><a href="/">home</a></button>
     <div class="row">
         <div id="title">
             <h1>Reactive java skill group</h1>
         </div>
+
         <table id="clusters" class="table table-striped">
             <thead>
             <tr>
-                <th>Id</th>
                 <th>Name</th>
             </tr>
             </thead>
             <tbody>
             <tr class="group" data-th-each="group : ${groups}">
-                <td>[[${group.id}]]</td>
                 <td>[[${group.name}]]</td>
             </tr>
             </tbody>
         </table>
     </div>
-
+    <div>
+        <h4>add new group</h4>
+        <form th:action="@{/group/add}" th:object="${group}" method="post">
+            <input type="text" th:field="${group.name}" placeholder="add new skill group"/>
+            <input type="submit" value="Submit"/>
+        </form>
+    </div>
 </div>
 
 </body>
