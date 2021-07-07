@@ -24,6 +24,9 @@ public class SkillController {
 
     private static final String TEMPLATE = "skills";
     private static final String ERROR = "error";
+    private static final String ATTRIBUTE_SKILL = "skill";
+    private static final String ATTRIBUTE_SKILLS = "skills";
+
 
     private final SkillService service;
 
@@ -31,10 +34,9 @@ public class SkillController {
     public Mono<String> addSkill(@ModelAttribute Skill skill, Model model) {
         log.info("skill " + skill.getName() + " has been added!");
         return service.add(skill)
-                .log("hook on flux")
-                .flatMap(sink -> Mono.just(model.addAttribute(TEMPLATE, new ReactiveDataDriverContextVariable(service.findAll(), 10))))
-                .log("another hook")
-                .then(Mono.just(TEMPLATE));
+                .flatMap(sink -> Mono.just(model.addAttribute(ATTRIBUTE_SKILL, new ReactiveDataDriverContextVariable(service.findAll(), 10))))
+                .then(Mono.just(TEMPLATE))
+                .onErrorReturn(ERROR);
 
     }
 
@@ -42,8 +44,8 @@ public class SkillController {
     public Mono<String> getAll(Model model) {
         return Mono.just(model)
                 .flatMap(m -> {
-                    m.addAttribute("skills", new ReactiveDataDriverContextVariable(service.findAll(), 10));
-                    m.addAttribute("skill", new Skill());
+                    m.addAttribute(ATTRIBUTE_SKILLS, new ReactiveDataDriverContextVariable(service.findAll(), 10));
+                    m.addAttribute(ATTRIBUTE_SKILL, new Skill());
                     return Mono.just(TEMPLATE);
 
                 }).onErrorReturn(ERROR);
@@ -51,31 +53,47 @@ public class SkillController {
 
     @PostMapping("/lvl")
     public Mono<String> getAllByLvl(@ModelAttribute Skill skill, Model model) {
-        model.addAttribute("skill", new Skill());
-        model.addAttribute("skills", new ReactiveDataDriverContextVariable(service.findAllByLevel(skill.getLevel())));
-        return Mono.just(model)
-                .doOnNext(e -> log.info(skill.getLevel().name()))
-                .log("lvl is " + skill.getLevel())
-                .flatMap(m -> {
 
+        return Mono.just(model)
+                .flatMap(m -> {
+                    model.addAttribute(ATTRIBUTE_SKILL, new Skill());
+                    model.addAttribute(ATTRIBUTE_SKILLS, new ReactiveDataDriverContextVariable(service.findAllByLevel(skill.getLevel())));
                     return Mono.just(TEMPLATE);
                 })
-                .doOnError(e -> System.out.println(e.getMessage() + "+++++++++++++++++++++++++++++++++++"))
-                .log("lvl is " + skill);
-        /*.onErrorReturn(ERROR);*/
+                .onErrorReturn(ERROR);
     }
 
-    @GetMapping("/priority")
-    public String getAllByPriority(@ModelAttribute Priority priority, Model model) {
-        service.findAllByPriority(priority);
-        return TEMPLATE;
+    @PostMapping("/priority")
+    public Mono<String> getAllByPriority(@ModelAttribute Skill skill, Model model) {
+        return Mono.just(model)
+                .flatMap(m -> {
+                    model.addAttribute(ATTRIBUTE_SKILL, new Skill());
+                    model.addAttribute(ATTRIBUTE_SKILLS, new ReactiveDataDriverContextVariable(service.findAllByPriority(skill.getPriority())));
+                    return Mono.just(TEMPLATE);
+                }).onErrorReturn(ERROR);
     }
 
-    @GetMapping("/get")
-    public String getSkill(@ModelAttribute UUID id, Model model) {
-        IReactiveDataDriverContextVariable driverContextVariable = new ReactiveDataDriverContextVariable(service.findAll(), 1);
-        model.addAttribute("skill", driverContextVariable);
-        return TEMPLATE;
+    @PostMapping("/get")
+    public Mono<String> getSkill(@ModelAttribute Skill skill, Model model) {
+        return Mono.just(model)
+                .flatMap(m -> {
+                    IReactiveDataDriverContextVariable driverContextVariable = new ReactiveDataDriverContextVariable(service.findByName(skill.getName()).flux(), 1);
+                    model.addAttribute(ATTRIBUTE_SKILL, new Skill());
+                    model.addAttribute(ATTRIBUTE_SKILLS, driverContextVariable);
+                    return Mono.just(TEMPLATE);
+                }).onErrorReturn(ERROR);
     }
 
+    @PostMapping("/delete")
+    public Mono<String> deleteSkill(@ModelAttribute Skill skill, Model model) {
+        return Mono.just(model)
+                .flatMap(
+                        m -> {
+                            IReactiveDataDriverContextVariable driverContextVariable = new ReactiveDataDriverContextVariable(service.removeByName(skill.getName()).flux(), 1);
+                            model.addAttribute(ATTRIBUTE_SKILL, new Skill());
+                            model.addAttribute(ATTRIBUTE_SKILLS, driverContextVariable);
+                            return Mono.just(TEMPLATE);
+                        }
+                ).onErrorReturn(ERROR);
+    }
 }

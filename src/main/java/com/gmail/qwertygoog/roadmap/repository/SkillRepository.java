@@ -15,7 +15,11 @@ public interface SkillRepository extends ReactiveCrudRepository<Skill, UUID> {
 
     Mono<UUID> removeById(UUID id);
 
+    Mono<String> removeByName(String name);
+
     Flux<Skill> findAllByLevel(Level level);
 
     Flux<Skill> findAllByPriority(Priority priority);
+
+    Mono<Skill> findByName(String name);
 }

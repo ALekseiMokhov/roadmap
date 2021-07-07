@@ -22,4 +22,7 @@ public interface SkillService {
 
     Mono<UUID> removeById(UUID id);
 
+    Mono<String> removeByName(String name);
+
+    Mono<Skill> findByName(String name);
 }

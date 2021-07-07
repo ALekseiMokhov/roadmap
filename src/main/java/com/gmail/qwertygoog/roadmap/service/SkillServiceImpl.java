@@ -41,13 +41,22 @@ public class SkillServiceImpl implements SkillService {
 
     @Override
     public Mono<Skill> add(Skill skill) {
-        log.debug("SKILL IS ______ "+ skill.getName() + "  ____WAS SAVED");
         return repository.save(skill);
     }
 
     @Override
     public Mono<UUID> removeById(UUID id) {
         return repository.removeById(id);
+    }
+
+    @Override
+    public Mono<String> removeByName(String name) {
+        return repository.removeByName(name);
+    }
+
+    @Override
+    public Mono<Skill> findByName(String name) {
+        return repository.findByName(name);
     }
 
 }
