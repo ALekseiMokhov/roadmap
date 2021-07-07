@@ -38,7 +38,7 @@
     <div>
         <h4>filter by lvl</h4>
         <form th:action="@{/skill/lvl}" th:object="${skill}" method="post">
-          <input type="text" th:field="*{level.getVal}">
+            <input type="text" th:field="${skill.level}" placeholder="choose by skill level"/>
          <input type="submit" value="Submit" />
         </form>
     </div>

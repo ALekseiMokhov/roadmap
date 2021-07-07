@@ -26,12 +26,12 @@ public class SkillServiceImpl implements SkillService {
 
     @Override
     public Flux<Skill> findAllByLevel(Level level) {
-        return null;
+        return repository.findAllByLevel(level);
     }
 
     @Override
     public Flux<Skill> findAllByPriority(Priority priority) {
-        return null;
+        return repository.findAllByPriority(priority);
     }
 
     @Override

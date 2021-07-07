@@ -48,18 +48,21 @@ public class SkillController {
 
                 }).onErrorReturn(ERROR);
     }
+
     @PostMapping("/lvl")
     public Mono<String> getAllByLvl(@ModelAttribute Skill skill, Model model) {
+        model.addAttribute("skill", new Skill());
+        model.addAttribute("skills", new ReactiveDataDriverContextVariable(service.findAllByLevel(skill.getLevel())));
         return Mono.just(model)
-                .doOnNext(e -> log.info(skill.toString()))
+                .doOnNext(e -> log.info(skill.getLevel().name()))
+                .log("lvl is " + skill.getLevel())
                 .flatMap(m -> {
 
-                    m.addAttribute("skill",new Skill());
-                /*    m.addAttribute("skills",new ReactiveDataDriverContextVariable(service.findAllByLevel(Level.valueOf(level))));*/
                     return Mono.just(TEMPLATE);
                 })
-                .doOnError(e -> System.out.println(e.getCause() +"+++++++++++++++++++++++++++++++++++"))
-                .onErrorReturn(ERROR);
+                .doOnError(e -> System.out.println(e.getMessage() + "+++++++++++++++++++++++++++++++++++"))
+                .log("lvl is " + skill);
+        /*.onErrorReturn(ERROR);*/
     }
 
     @GetMapping("/priority")
