@@ -5,12 +5,10 @@ import com.gmail.qwertygoog.roadmap.service.MailSenderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
+import java.security.Principal;
 import java.time.LocalDate;
 
 @Controller
@@ -24,19 +22,26 @@ public class IndexContoller {
 
     private final MailSenderService service;
 
-      @PostMapping("/mail")
-    public Mono<String> redirectToSend(){
+    @PostMapping("/mail")
+    public Mono<String> redirectToSend() {
         return Mono.just(SEND_TEMPLATE);
     }
 
     @PostMapping("/send")
-    public Mono<String> sendMessage(@RequestParam MessageEvent event , Model model) {
+    public Mono<String> sendMessage(@RequestParam MessageEvent event, Model model) {
         return service.sendMail(event)
                 .flatMap(
-                        sink ->{
+                        sink -> {
                             return Mono.just(TEMPLATE);
                         }
                 )
                 .onErrorReturn(ERROR);
+    }
+
+    @GetMapping("/")
+    public Mono<String> greet(Mono<Principal> principal) {
+        return principal
+                .map(Principal::getName)
+                .map(name -> String.format("Hello, %s", name));
     }
 }

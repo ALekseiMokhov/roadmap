@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 @Configuration
-@EncryptablePropertySource(name = "EncryptedProperties",value = "classpath:application.properties")
+@EncryptablePropertySource(value = "classpath:application.properties")
 /*@PropertySource("classpath:com.qwertygoog.gmail.roadmap.admin.password")
 @PropertySource("spring.mail.username")
 @PropertySource("spring.mail.password")

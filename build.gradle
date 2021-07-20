@@ -1,10 +1,10 @@
 buildscript {
-	repositories {
-		jcenter()
-	}
-	dependencies {
-		classpath "com.byteowls:jasypt-gradle-plugin:1.0.1"
-	}
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath "com.byteowls:jasypt-gradle-plugin:1.0.1"
+    }
 }
 
 plugins {
@@ -45,7 +45,6 @@ dependencies {
 
     compileOnly 'org.projectlombok:lombok'
 
-
     runtimeOnly 'org.liquibase:liquibase-core'
     runtimeOnly 'com.h2database:h2'
     runtimeOnly 'io.r2dbc:r2dbc-h2'
@@ -56,6 +55,8 @@ dependencies {
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'io.projectreactor:reactor-test'
+    testImplementation group: 'org.springframework.security', name: 'spring-security-test', version: '5.5.0'
+
 
 }
 

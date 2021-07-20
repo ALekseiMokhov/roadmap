@@ -13,6 +13,7 @@ import javax.mail.internet.MimeMessage;
 @Service
 @RequiredArgsConstructor
 public class MailSenderServiceImpl implements MailSenderService {
+
     private final JavaMailSender sender;
 
     @Override
