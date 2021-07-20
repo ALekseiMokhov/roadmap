@@ -1,11 +1,15 @@
 package com.gmail.qwertygoog.roadmap;
 
+import com.gmail.qwertygoog.roadmap.security.PropertyEncryptConfig;
+import com.gmail.qwertygoog.roadmap.security.SecurityConfig;
+import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
 import org.springframework.beans.BeansException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
 import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -20,6 +24,8 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 
 @SpringBootApplication
 @EnableR2dbcRepositories
+@EnableEncryptableProperties
+@Import({SecurityConfig.class, PropertyEncryptConfig.class})
 public class RoadmapApplication {
 
     public static void main(String[] args) {
