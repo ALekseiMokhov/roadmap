@@ -3,3 +3,5 @@ databaseChangeLog:
            file: db/changelog/db.changelog-skill_1.0.yaml
       - include:
            file: db/changelog/db.changelog-skill-group_1.0.yaml
+      - include:
+           file: db/changelog/db.changelog-user_1.0.yaml

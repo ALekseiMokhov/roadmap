@@ -17,31 +17,14 @@ import java.time.LocalDate;
 public class IndexContoller {
 
     private static final String TEMPLATE = "index";
-    private static final String SEND_TEMPLATE = "mail";
-    private static final String ERROR = "error";
 
-    private final MailSenderService service;
-
-    @PostMapping("/mail")
-    public Mono<String> redirectToSend() {
-        return Mono.just(SEND_TEMPLATE);
-    }
-
-    @PostMapping("/send")
-    public Mono<String> sendMessage(@RequestParam MessageEvent event, Model model) {
-        return service.sendMail(event)
-                .flatMap(
-                        sink -> {
-                            return Mono.just(TEMPLATE);
-                        }
-                )
-                .onErrorReturn(ERROR);
-    }
-
-    @GetMapping("/")
-    public Mono<String> greet(Mono<Principal> principal) {
+    @PostMapping("/")
+    public Mono<String> greet(Mono<Principal> principal, Model model) {
         return principal
                 .map(Principal::getName)
-                .map(name -> String.format("Hello, %s", name));
+/*
+                .map(name -> model.addAttribute("user", name))
+*/
+                .then(Mono.just(TEMPLATE));
     }
 }

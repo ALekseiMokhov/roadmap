@@ -25,8 +25,8 @@ public class SecurityTest {
 
     @Test
     @WithMockUser
-    public void whenHasCredentials_thenSeesGreeting() {
-        this.client.get().uri("/").exchange().expectStatus().isOk().expectBody(String.class).isEqualTo("index");
+    public void whenHasCredentials_thenSeeIndexHTML() {
+        this.client.get().uri("/").exchange().expectStatus().isOk().expectBody(String.class);
     }
 
 }
