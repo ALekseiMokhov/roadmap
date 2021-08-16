@@ -16,7 +16,7 @@ plugins {
 apply plugin: "com.byteowls.jasypt"
 
 group = 'com.gmail.qwertygoog'
-version = '0.0.1-SNAPSHOT'
+version = ''
 sourceCompatibility = '11'
 
 configurations {

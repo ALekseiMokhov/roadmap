@@ -13,23 +13,6 @@
 </head>
 <body>
 <div class="container">
-    <form
-            onsubmit="
-            var payload ={
-                    method: 'post' ,
-                    headers: {
-                    'Content-type': 'application/x-www-form-urlencoded'
-                    },
-                    body: `username=${this.username.value}&password=${this.password.value}`
-
-            }
-            fetch('/login', payload).then(resp => resp.text()).then(text => console.log(text));
-            return false;
-"
-    >
-        <input type="text" name="username">
-        <input type="password" name="password">
-        <input type="submit" value="sign in"></form>
 </div>
 </body>
 </html>

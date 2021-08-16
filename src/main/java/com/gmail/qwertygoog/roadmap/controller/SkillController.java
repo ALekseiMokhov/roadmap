@@ -6,6 +6,7 @@ import com.gmail.qwertygoog.roadmap.model.Skill;
 import com.gmail.qwertygoog.roadmap.service.SkillService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,9 +28,9 @@ public class SkillController {
     private static final String ATTRIBUTE_SKILL = "skill";
     private static final String ATTRIBUTE_SKILLS = "skills";
 
-
     private final SkillService service;
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/add")
     public Mono<String> addSkill(@ModelAttribute Skill skill, Model model) {
         return service.add(skill)
@@ -88,14 +89,16 @@ public class SkillController {
     }
 
     @PostMapping("/delete")
+/*
+    @PreAuthorize("hasRole('ADMIN')")
+*/
     public Mono<String> deleteSkill(@ModelAttribute Skill skill, Model model) {
-        return Mono.just(model)
-                .flatMap(
+              return   service.removeByName(skill.getName())
+                        .flatMap(
                         m -> {
-                            service.removeByName(skill.getName());
-                            IReactiveDataDriverContextVariable driverContextVariable = new ReactiveDataDriverContextVariable(service.findAll());
+                     /*       IReactiveDataDriverContextVariable driverContextVariable = new ReactiveDataDriverContextVariable(service.findAll());
                             model.addAttribute(ATTRIBUTE_SKILL, new Skill());
-                            model.addAttribute(ATTRIBUTE_SKILLS, driverContextVariable);
+                            model.addAttribute(ATTRIBUTE_SKILLS, driverContextVariable);*/
                             return Mono.just(TEMPLATE);
                         }
                 ).onErrorReturn(ERROR);

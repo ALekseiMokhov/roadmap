@@ -41,11 +41,10 @@ public class SkillGroupController {
     @PostMapping("/delete")
     public Mono<String> removeSkillGroup(@ModelAttribute SkillGroup group, Model model) {
 
-        return Mono.just(model)
+        return service.removeByName(group)
                 .flatMap(m -> {
-                    service.removeByName(group);
-                    model.addAttribute(ATTRIBUTE_GROUP, new SkillGroup());
-                    model.addAttribute(ATTRIBUTE_GROUPS, new ReactiveDataDriverContextVariable(service.findAll(), 100));
+              /*      model.addAttribute(ATTRIBUTE_GROUP, new SkillGroup());
+                    model.addAttribute(ATTRIBUTE_GROUPS, new ReactiveDataDriverContextVariable(service.findAll(), 100));*/
                     return Mono.just(TEMPLATE);
                 }).onErrorReturn(ERROR);
 

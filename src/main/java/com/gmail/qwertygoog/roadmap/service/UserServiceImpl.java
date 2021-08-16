@@ -1,5 +1,6 @@
 package com.gmail.qwertygoog.roadmap.service;
 
+import com.gmail.qwertygoog.roadmap.model.User;
 import com.gmail.qwertygoog.roadmap.repository.UserRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.ReactiveUserDetailsService;
@@ -15,5 +16,9 @@ public class UserServiceImpl implements ReactiveUserDetailsService {
     @Override
     public Mono<UserDetails> findByUsername(String username) {
         return userRepo.findByUsername(username).cast(UserDetails.class);
+    }
+
+    public Mono<User> save(User user){
+        return userRepo.save(user);
     }
 }

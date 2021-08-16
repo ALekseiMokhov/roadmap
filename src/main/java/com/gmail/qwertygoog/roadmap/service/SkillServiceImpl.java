@@ -51,7 +51,7 @@ public class SkillServiceImpl implements SkillService {
 
     @Override
     public Mono<String> removeByName(String name) {
-        return repository.removeByName(name);
+        return repository.deleteByName(name);
     }
 
     @Override
