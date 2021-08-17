@@ -21,6 +21,9 @@ after_success:
   - docker tag $NAME:$COMMIT $NAME:$TAG
   - docker push $NAME
 
+codecov:
+  token: d17ce4d0-57b8-413f-81a2-bfd46c178739
+
 notifications:
   email:
     - qwertygoog@gmail.com
