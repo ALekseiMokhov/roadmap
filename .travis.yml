@@ -3,6 +3,8 @@ sudo: required
 services:
   - docker
 
+install: gradle wrapper --gradle-version 6.4
+
 language: java
 jdk: openjdk11
 
