@@ -9,7 +9,9 @@ jdk: openjdk11
 env:
   global:
     - COMMIT=${TRAVIS_COMMIT::7}
-
+script:
+    - docker-compose up -d
+    - docker-compose ps
 after_success:
   - bash <(curl -s https://codecov.io/bash)
   - docker login -u $D_USER -p $D_PASS
