@@ -13,7 +13,7 @@ script:
     - docker-compose up -d
     - docker-compose ps
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
+  - bash <(curl -s https://codecov.yml.io/bash)
   - docker login -u $D_USER -p $D_PASS
   - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH; fi `
   - export NAME=tarmogoyf/roadmap
