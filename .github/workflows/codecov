@@ -15,3 +15,4 @@ jobs:
         uses: codecov/codecov-action@v1
         with:
           files: ./lib.c.gcov
+          token: ${{ secrets.codecov }}
