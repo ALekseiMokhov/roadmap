@@ -23,5 +23,10 @@ class SkillServiceImplTest {
         skillService.add(new Skill());
         Mockito.verify(repository,Mockito.times(1)).save(any());
     }
+    @Test
+    void testServiceFindAll(){
+        skillService.findAll();
+        Mockito.verify(repository,Mockito.times(1)).findAll();
+    }
 
 }
