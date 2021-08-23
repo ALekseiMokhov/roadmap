@@ -6,14 +6,19 @@ services:
 language: java
 jdk: openjdk11
 
+before_script:
+  - chmod +x gradlew
+
 env:
   global:
     - COMMIT=${TRAVIS_COMMIT::7}
 script:
     - docker-compose up -d
     - docker-compose ps
+    - ./gradlew check
+    - ./gradlew codeCoverageReport
 after_success:
-  - bash <(curl -s https://codecov.yml.io/bash)
+  - bash <(curl -s https://codecov.io/bash)
   - docker login -u $D_USER -p $D_PASS
   - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH; fi `
   - export NAME=tarmogoyf/roadmap

@@ -15,6 +15,7 @@ plugins {
 }
 
 apply plugin: "com.byteowls.jasypt"
+apply plugin: 'jacoco'
 
 group = 'com.gmail.qwertygoog'
 version = ''
@@ -63,4 +64,11 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        html.enabled false
+    }
 }
