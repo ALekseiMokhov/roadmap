@@ -1,7 +1,5 @@
 package com.gmail.qwertygoog.roadmap.controller;
 
-import com.gmail.qwertygoog.roadmap.model.Level;
-import com.gmail.qwertygoog.roadmap.model.Priority;
 import com.gmail.qwertygoog.roadmap.model.Skill;
 import com.gmail.qwertygoog.roadmap.service.SkillService;
 import lombok.AllArgsConstructor;
@@ -9,13 +7,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.thymeleaf.spring5.context.webflux.IReactiveDataDriverContextVariable;
 import org.thymeleaf.spring5.context.webflux.ReactiveDataDriverContextVariable;
 import reactor.core.publisher.Mono;
-
-import java.util.UUID;
 
 @Controller
 @RequestMapping("/skill")
@@ -30,7 +28,7 @@ public class SkillController {
 
     private final SkillService service;
 
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("/add")
     public Mono<String> addSkill(@ModelAttribute Skill skill, Model model) {
         return service.add(skill)
@@ -93,14 +91,12 @@ public class SkillController {
     @PreAuthorize("hasRole('ADMIN')")
 */
     public Mono<String> deleteSkill(@ModelAttribute Skill skill, Model model) {
-              return   service.removeByName(skill.getName())
-                        .flatMap(
-                        m -> {
-                     /*       IReactiveDataDriverContextVariable driverContextVariable = new ReactiveDataDriverContextVariable(service.findAll());
-                            model.addAttribute(ATTRIBUTE_SKILL, new Skill());
-                            model.addAttribute(ATTRIBUTE_SKILLS, driverContextVariable);*/
-                            return Mono.just(TEMPLATE);
-                        }
-                ).onErrorReturn(ERROR);
+        return service.removeByName(skill.getName())
+                .flatMap(
+                        m -> Mono.just(TEMPLATE)
+                                .onErrorReturn(ERROR)
+
+                );
+
     }
 }

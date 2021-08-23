@@ -1,10 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link data-th-href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link data-th-href="@{/css/main.css}" rel="stylesheet">
+    <div th:insert="~{fragments/header}"/>
 </head>
 <body>
-
+<div class="container p-3 mb-2 bg-info text-white">
+    <h4>contact me:</h4>
+    <form th:action="@{/mail/send}" th:object="${messageEvent}" method="post">
+        <input type="text" th:field="${messageEvent.from}" placeholder="enter your email"/>
+        <input type="text" th:field="${messageEvent.text}" placeholder="enter your message"/>
+        <input type="submit" value="Submit"/>
+    </form>
+</div>
 </body>
 </html>

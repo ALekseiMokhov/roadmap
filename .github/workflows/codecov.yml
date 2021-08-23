@@ -1,8 +1,5 @@
 name: codecov
-on:
-  push:
-    branches:
-    - "*"
+on: [push]
 jobs:
   run:
     runs-on: ubuntu-latest

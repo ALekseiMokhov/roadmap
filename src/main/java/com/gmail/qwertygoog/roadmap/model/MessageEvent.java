@@ -4,9 +4,9 @@ import lombok.Data;
 
 @Data
 public class MessageEvent {
-    private final String to;
-    private final String from;
-    private final String subject;
-    private final String text;
+    private String to;
+    private String from;
+    private String subject;
+    private String text;
 
 }
