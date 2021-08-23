@@ -11,3 +11,8 @@
   display: inline-block;
   font-size: 13px;
 }
+
+.window {
+  right: 10px;
+  width: 800px;
+}

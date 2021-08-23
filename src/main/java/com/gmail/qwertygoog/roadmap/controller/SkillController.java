@@ -87,9 +87,7 @@ public class SkillController {
     }
 
     @PostMapping("/delete")
-/*
-    @PreAuthorize("hasRole('ADMIN')")
-*/
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Mono<String> deleteSkill(@ModelAttribute Skill skill, Model model) {
         return service.removeByName(skill.getName())
                 .flatMap(

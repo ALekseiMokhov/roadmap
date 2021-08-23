@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link data-th-href="@{/css/bootstrap.min.css}" rel="stylesheet">
     <link data-th-href="@{/css/main.css}" rel="stylesheet">
-        <div th:insert="~{fragments/header}"></div>
+    <div th:insert="~{fragments/header}"></div>
 </head>
 <body>
 <div class="container p-3 mb-2 bg-info text-white">
@@ -38,7 +38,7 @@
         <h4>filter by lvl</h4>
         <form th:action="@{/skill/lvl}" th:object="${skill}" method="post">
             <input type="text" th:field="${skill.level}" placeholder="choose by skill level"/>
-         <input type="submit" value="Submit" />
+            <input type="submit" value="Submit"/>
         </form>
     </div>
     <div>
@@ -53,24 +53,29 @@
         <h4>filter by priority</h4>
         <form th:action="@{/skill/priority}" th:object="${skill}" method="post">
             <input type="text" th:field="${skill.priority}" placeholder="choose by skill priority"/>
-         <input type="submit" value="Submit" />
+            <input type="submit" value="Submit"/>
         </form>
     </div>
     <div>
         <h4>add skill</h4>
         <form th:action="@{/skill/add}" th:object="${skill}" method="post">
-            <input type="text" th:field="${skill.name}" placeholder="choose skill name"/>
-            <input type="text" th:field="${skill.level}" placeholder="choose skill level"/>
-            <input type="text" th:field="${skill.priority}" placeholder="choose skill priority"/>
-            <input type="text" th:field="${skill.skillGroupName}" placeholder="choose skill group name"/>
+            <input type="text"  class="form-control" th:field="${skill.name}" placeholder="choose skill name"/>
+            <!--<input type="text" th:field="${skill.level}" placeholder="choose skill level"/>-->
+            <select name="level" class="form-control form-control-sm">
+                <option value="" disabled selected hidden> select skill level</option>
+                <option value="A" th:selected="${skill.level eq 'A'}">A</option>
+                <option value="B" th:selected="${skill.level eq 'B'}">B</option>
+            </select>
+            <input type="text" class="form-control" th:field="${skill.priority}" placeholder="choose skill priority"/>
+            <input type="text" class="form-control" th:field="${skill.skillGroupName}" placeholder="choose skill group name"/>
             <input type="submit" value="Submit"/> <input type="reset" value="Reset"/>
         </form>
     </div>
-      <div>
+    <div>
         <h4>delete by name</h4>
         <form th:action="@{/skill/delete}" th:object="${skill}" method="post">
             <input type="text" th:field="${skill.name}" placeholder="DELETE by skill name"/>
-            <input type="submit" value="Submit" />
+            <input type="submit" value="Submit"/>
         </form>
     </div>
     <div th:insert="~{fragments/footer}" }></div>

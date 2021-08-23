@@ -12,8 +12,9 @@
 <div class="container p-3 mb-2 bg-info text-white">
     <h4>contact me:</h4>
     <form th:action="@{/mail/send}" th:object="${messageEvent}" method="post">
-        <input type="text" th:field="${messageEvent.from}" placeholder="enter your email"/>
-        <input type="text" th:field="${messageEvent.text}" placeholder="enter your message"/>
+        <div> <input type="email" th:field="${messageEvent.from}" placeholder="enter your email"/></div>
+        <div>
+            <textarea class="form-control" th:field="${messageEvent.text}" placeholder="enter your message"/></div>
         <input type="submit" value="Submit"/>
     </form>
 </div>
