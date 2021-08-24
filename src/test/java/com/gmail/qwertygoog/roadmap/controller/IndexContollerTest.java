@@ -26,6 +26,7 @@ import static org.springframework.security.test.web.reactive.server.SecurityMock
 class IndexContollerTest {
 
     private static final String ADD_USER = "/signup";
+    private static final String GET = "/";
     @Autowired
     private WebTestClient webClient;
     @MockBean
@@ -40,11 +41,30 @@ class IndexContollerTest {
         user.setPassword("long_andStronk3");
     }
 
+
+    @Test
+    void testConfigIsOk() {
+        System.out.println("Config is up!");
+        assertEquals(2, (1 + 1));
+    }
+    @Test
+    @WithMockUser
+    void testGetAll(){
+        webClient
+                .mutateWith(csrf())
+                .get()
+                .uri(GET)
+                .exchange()
+                .expectStatus()
+                .is2xxSuccessful();
+    }
+
     @Test
     @WithMockUser
     void saveUser() throws Exception {
         Mockito.when(userService.save(any())).thenReturn(Mono.just(user));
-        webClient.mutateWith(csrf())
+        webClient
+                .mutateWith(csrf())
                 .post()
                 .uri(ADD_USER)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -54,10 +74,5 @@ class IndexContollerTest {
                 .is2xxSuccessful();
     }
 
-    @Test
-    void testConfigIsOk() {
-        System.out.println("Config is up!");
-        assertEquals(2, (1 + 1));
-    }
 
 }
