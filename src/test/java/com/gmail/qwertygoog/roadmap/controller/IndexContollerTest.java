@@ -1,6 +1,5 @@
 package com.gmail.qwertygoog.roadmap.controller;
 
-import com.gmail.qwertygoog.roadmap.TestAppConfig;
 import com.gmail.qwertygoog.roadmap.model.User;
 import com.gmail.qwertygoog.roadmap.model.UserRole;
 import com.gmail.qwertygoog.roadmap.service.UserServiceImpl;
@@ -10,7 +9,6 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.reactive.server.WebTestClient;
@@ -22,7 +20,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.security.test.web.reactive.server.SecurityMockServerConfigurers.csrf;
 
 @WebFluxTest(controllers = IndexContoller.class)
-@Import(TestAppConfig.class)
 class IndexContollerTest {
 
     private static final String ADD_USER = "/signup";
