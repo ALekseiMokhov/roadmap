@@ -8,3 +8,5 @@
 - Installed Postgresql 12.6 +
 - 4+ GB RAM
 - Modern browser
+
+[![codecov](https://codecov.io/gh/ALekseiMokhov/roadmap/branch/master/graph/badge.svg?token=P4QQYBDXEG)](https://codecov.io/gh/ALekseiMokhov/roadmap)
