@@ -2,8 +2,6 @@ package com.gmail.qwertygoog.roadmap.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 
-import java.util.stream.Stream;
-
 public enum Level {
 
     A("A"),

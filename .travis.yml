@@ -16,7 +16,7 @@ script:
     - docker-compose up -d
     - docker-compose ps
     - ./gradlew check
-    - ./gradlew codeCoverageReport
+    - ./gradlew jacocoTestReport
 after_success:
   - bash <(curl -s https://codecov.io/bash)
   - docker login -u $D_USER -p $D_PASS
