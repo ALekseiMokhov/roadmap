@@ -1,6 +1,6 @@
 ## Description of project
-- Representation of author's learning skills in Java and CS
-- Written as pet project with completely reactive stack
+- Representation of author's learning skills in Java and CI
+- Written as pet project using completely reactive stack
 - Author Mokhov Aleksei qwertygoog@gmail.com
 
 ### Requirements:

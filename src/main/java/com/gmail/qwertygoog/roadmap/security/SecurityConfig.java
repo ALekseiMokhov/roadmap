@@ -15,6 +15,7 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 @EnableReactiveMethodSecurity(mode = AdviceMode.PROXY)
 public class SecurityConfig {
     private static final String ADMIN = "ROLE_ADMIN";
+
     @Bean
     public SecurityWebFilterChain securitygWebFilterChain(
             ServerHttpSecurity http) {
@@ -23,18 +24,16 @@ public class SecurityConfig {
                 .formLogin()
                 .and()
                 .authorizeExchange()
-                .pathMatchers("/", "/signup", "/send", "/css/**","/png/**").permitAll()
-/*
-                .pathMatchers("/group","/skill").hasAnyRole(ADMIN)
-*/
+                .pathMatchers("/", "/signup", "/send", "/css/**", "/png/**").permitAll()
                 .anyExchange().authenticated()
-
                 .and().build();
     }
 
+    /**
+     * no encoder due to jasypt encryption
+     */
     @Bean
-    @SuppressWarnings("deprecation")
     public PasswordEncoder passwordEncoder() {
-        return  NoOpPasswordEncoder.getInstance();
+        return NoOpPasswordEncoder.getInstance();
     }
 }
