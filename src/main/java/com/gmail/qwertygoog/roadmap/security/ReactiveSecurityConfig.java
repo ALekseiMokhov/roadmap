@@ -13,7 +13,7 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 @Configuration
 @EnableWebFluxSecurity
 @EnableReactiveMethodSecurity(mode = AdviceMode.PROXY)
-public class SecurityConfig {
+public class ReactiveSecurityConfig {
     private static final String ADMIN = "ROLE_ADMIN";
 
     @Bean
@@ -24,13 +24,22 @@ public class SecurityConfig {
                 .formLogin()
                 .and()
                 .authorizeExchange()
-                .pathMatchers("/", "/signup", "/send", "/css/**", "/png/**").permitAll()
+                .pathMatchers("/group")
+                .hasAnyRole("ADMIN")
+                .pathMatchers("/", "/signup", "/send", "/css/**", "/png/**")
+                .permitAll()
                 .anyExchange().authenticated()
-                .and().build();
+                .and()
+                .oauth2Login()
+                .and()
+                .exceptionHandling()
+                .and()
+                .build();
     }
 
     /**
      * no encoder due to jasypt encryption
+     * todo пробросить вместе с jasypt
      */
     @Bean
     public PasswordEncoder passwordEncoder() {

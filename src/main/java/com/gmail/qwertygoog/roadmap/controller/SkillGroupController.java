@@ -43,8 +43,8 @@ public class SkillGroupController {
 
         return service.removeByName(group)
                 .flatMap(m -> {
-              /*      model.addAttribute(ATTRIBUTE_GROUP, new SkillGroup());
-                    model.addAttribute(ATTRIBUTE_GROUPS, new ReactiveDataDriverContextVariable(service.findAll(), 100));*/
+                    model.addAttribute(ATTRIBUTE_GROUP, new SkillGroup());
+                    model.addAttribute(ATTRIBUTE_GROUPS, new ReactiveDataDriverContextVariable(service.findAll(), 100));
                     return Mono.just(TEMPLATE);
                 }).onErrorReturn(ERROR);
 
