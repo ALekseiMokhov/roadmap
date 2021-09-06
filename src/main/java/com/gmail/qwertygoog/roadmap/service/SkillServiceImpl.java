@@ -41,7 +41,7 @@ public class SkillServiceImpl implements SkillService {
     }
 
     @Override
-    @PreAuthorize("hasRole('ADMIN')")
+
     public Mono<Skill> add(Skill skill) {
         return repository.save(skill);
     }
@@ -52,7 +52,6 @@ public class SkillServiceImpl implements SkillService {
     }
 
     @Override
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Mono<String> removeByName(String name) {
         return repository.deleteByName(name);
     }

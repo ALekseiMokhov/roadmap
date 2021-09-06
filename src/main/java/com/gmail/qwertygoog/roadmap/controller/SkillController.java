@@ -4,6 +4,7 @@ import com.gmail.qwertygoog.roadmap.model.Skill;
 import com.gmail.qwertygoog.roadmap.service.SkillService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -86,7 +87,7 @@ public class SkillController {
     }
 
     @PostMapping("/delete")
-
+    @PreAuthorize("hasAuthority('admin')")
     public Mono<String> deleteSkill(@ModelAttribute Skill skill, Model model) {
         return service.removeByName(skill.getName())
                 .flatMap(
