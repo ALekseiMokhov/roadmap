@@ -6,6 +6,7 @@ import com.gmail.qwertygoog.roadmap.model.Skill;
 import com.gmail.qwertygoog.roadmap.repository.SkillRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -40,6 +41,7 @@ public class SkillServiceImpl implements SkillService {
     }
 
     @Override
+    @PreAuthorize("hasRole('ADMIN')")
     public Mono<Skill> add(Skill skill) {
         return repository.save(skill);
     }
@@ -50,6 +52,7 @@ public class SkillServiceImpl implements SkillService {
     }
 
     @Override
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Mono<String> removeByName(String name) {
         return repository.deleteByName(name);
     }

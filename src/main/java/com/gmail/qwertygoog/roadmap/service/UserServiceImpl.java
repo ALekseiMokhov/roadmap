@@ -19,6 +19,9 @@ public class UserServiceImpl implements ReactiveUserDetailsService {
     }
 
     public Mono<User> save(User user){
+        if(userRepo.findByUsername(user.getUsername())!=null){
+            throw new RuntimeException("User with username : " +user.getUsername() + " already exists!");
+        }
         return userRepo.save(user);
     }
 

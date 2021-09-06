@@ -28,7 +28,6 @@ public class SkillController {
 
     private final SkillService service;
 
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("/add")
     public Mono<String> addSkill(@ModelAttribute Skill skill, Model model) {
         return service.add(skill)
@@ -87,7 +86,7 @@ public class SkillController {
     }
 
     @PostMapping("/delete")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+
     public Mono<String> deleteSkill(@ModelAttribute Skill skill, Model model) {
         return service.removeByName(skill.getName())
                 .flatMap(

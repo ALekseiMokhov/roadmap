@@ -1,6 +1,5 @@
 package com.gmail.qwertygoog.roadmap.security;
 
-import org.springframework.context.annotation.AdviceMode;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableReactiveMethodSecurity;
@@ -12,9 +11,8 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 
 @Configuration
 @EnableWebFluxSecurity
-@EnableReactiveMethodSecurity(mode = AdviceMode.PROXY)
+@EnableReactiveMethodSecurity
 public class ReactiveSecurityConfig {
-    private static final String ADMIN = "ROLE_ADMIN";
 
     @Bean
     public SecurityWebFilterChain securitygWebFilterChain(
