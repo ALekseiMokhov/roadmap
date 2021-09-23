@@ -1,0 +1,36 @@
+databaseChangeLog:
+  - changeSet:
+         id: 1
+         author: Alexey
+         changes:
+          - createTable:
+              tableName: mail
+              columns:
+                  - column:
+                      name: id
+                      type: uuid
+                      autoIncrement: false
+                      constraints:
+                         primaryKey: true
+                         nullable: false
+                  - column:
+                      name: from
+                      type: varchar(40)
+                      constraints:
+                         nullable: false
+                  - column:
+                      name: to
+                      type: varchar(40)
+                      constraints:
+                         nullable: false
+                  - column:
+                      name: topic
+                      type: varchar(40)
+                      constraints:
+                         nullable: false
+                  - column:
+                      name: text
+                      type: varchar(256)
+                      constraints:
+                         nullable: false
+

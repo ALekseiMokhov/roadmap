@@ -5,5 +5,5 @@ import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories;
 
 @Configuration
 @EnableR2dbcRepositories
-public class PersistanceConfig {
+public class PersistenceConfig {
 }
