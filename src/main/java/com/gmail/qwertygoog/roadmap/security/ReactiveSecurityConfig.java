@@ -22,8 +22,6 @@ public class ReactiveSecurityConfig {
                 .formLogin()
                 .and()
                 .authorizeExchange()
-                .pathMatchers("/group")
-                .hasAnyRole("ADMIN")
                 .pathMatchers("/", "/signup", "/send", "/css/**", "/png/**")
                 .permitAll()
                 .anyExchange().authenticated()
