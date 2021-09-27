@@ -32,6 +32,7 @@ class MailControllerTest {
     void render() {
        webClient
                 .mutateWith(csrf())
+               .mutateWith((builder, httpHandlerBuilder, connector) -> {})
                 .get()
                 .uri(MAIL)
                 .exchange()

@@ -1,6 +1,5 @@
 package com.gmail.qwertygoog.roadmap.controller;
 
-import com.gmail.qwertygoog.roadmap.model.Level;
 import com.gmail.qwertygoog.roadmap.model.Priority;
 import com.gmail.qwertygoog.roadmap.model.Skill;
 import com.gmail.qwertygoog.roadmap.service.SkillService;
@@ -14,9 +13,11 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.reactive.function.BodyInserters;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.List;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.security.test.web.reactive.server.SecurityMockServerConfigurers.csrf;
 
@@ -39,7 +40,7 @@ class SkillControllerTest {
     @BeforeEach
     void init() {
         skill = new Skill();
-        skill.setLevel(Level.A);
+        skill.setLevel(12);
         skill.setName("Important");
         skill.setPriority(Priority.HIGH);
     }
@@ -64,9 +65,18 @@ class SkillControllerTest {
 
     @Test
     void getAll() {
+        Mockito.when(service.findAll()).thenReturn(Flux.fromIterable(List.of(skill,skill,skill)));
+        webTestClient
+                .mutateWith(csrf())
+                .post()
+                .uri(GET_ALL)
+                .contentType(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectBody()
+                .isEmpty();
     }
 
-    @Test
+  /*  @Test
     void getAllByLvl() {
     }
 
@@ -76,5 +86,5 @@ class SkillControllerTest {
 
     @Test
     void deleteSkill() {
-    }
+    }*/
 }

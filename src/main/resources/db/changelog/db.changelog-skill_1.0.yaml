@@ -20,7 +20,7 @@ databaseChangeLog:
                        nullable: false
                 - column:
                     name: level
-                    type: varchar(64)
+                    type: int
                     constraints:
                        nullable: false
                 - column:

@@ -1,6 +1,5 @@
 package com.gmail.qwertygoog.roadmap.repository;
 
-import com.gmail.qwertygoog.roadmap.model.Level;
 import com.gmail.qwertygoog.roadmap.model.Priority;
 import com.gmail.qwertygoog.roadmap.model.Skill;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
@@ -17,7 +16,7 @@ public interface SkillRepository extends ReactiveCrudRepository<Skill, UUID> {
 
     Mono<String> deleteByName(String name);
 
-    Flux<Skill> findAllByLevel(Level level);
+    Flux<Skill> findAllByLevel(int level);
 
     Flux<Skill> findAllByPriority(Priority priority);
 

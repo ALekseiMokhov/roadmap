@@ -1,6 +1,5 @@
 package com.gmail.qwertygoog.roadmap.service;
 
-import com.gmail.qwertygoog.roadmap.model.Level;
 import com.gmail.qwertygoog.roadmap.model.Priority;
 import com.gmail.qwertygoog.roadmap.model.Skill;
 import com.gmail.qwertygoog.roadmap.repository.SkillRepository;
@@ -35,8 +34,8 @@ class SkillServiceImplTest {
 
     @Test
     void testServiceFindByLvl() {
-        skillService.findAllByLevel(Level.A);
-        Mockito.verify(repository, Mockito.times(1)).findAllByLevel(Level.A);
+        skillService.findAllByLevel(99);
+        Mockito.verify(repository, Mockito.times(1)).findAllByLevel(99);
     }
 
     @Test

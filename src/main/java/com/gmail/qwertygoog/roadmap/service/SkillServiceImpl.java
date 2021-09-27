@@ -1,12 +1,10 @@
 package com.gmail.qwertygoog.roadmap.service;
 
-import com.gmail.qwertygoog.roadmap.model.Level;
 import com.gmail.qwertygoog.roadmap.model.Priority;
 import com.gmail.qwertygoog.roadmap.model.Skill;
 import com.gmail.qwertygoog.roadmap.repository.SkillRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -26,7 +24,7 @@ public class SkillServiceImpl implements SkillService {
     }
 
     @Override
-    public Flux<Skill> findAllByLevel(Level level) {
+    public Flux<Skill> findAllByLevel(int level) {
         return repository.findAllByLevel(level);
     }
 

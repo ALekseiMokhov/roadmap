@@ -4,7 +4,6 @@
 .button {
   background-color: #5B3A56;
   border: none;
-  color: white;
   padding: 15px 32px;
   text-align: center;
   text-decoration: none;
@@ -15,4 +14,15 @@
 .window {
   right: 10px;
   width: 800px;
+}
+.oauth_button{
+  background-color: #5B3A56;
+  border: 2px spotted black;
+  padding: 15px 32px;
+  text-align: center;
+}
+.button_container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

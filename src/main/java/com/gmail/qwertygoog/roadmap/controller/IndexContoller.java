@@ -29,5 +29,9 @@ public class IndexContoller {
         }
         return Mono.just("/");
     }
+    @GetMapping("/logout")
+    public Mono<String> logout() {
+        return Mono.just("/");
+    }
 
 }

@@ -20,7 +20,7 @@ public class Skill implements Persistable<UUID> {
     private UUID id;
     @Column("skill_name")
     private String name;
-    private Level level;
+    private int level;
     private Priority priority;
 
     @Override
