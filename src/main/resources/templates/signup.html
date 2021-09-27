@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link data-th-href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link data-th-href="@{/css/main.css}" rel="stylesheet">
+
+    <div th:insert="~{fragments/header}"></div>
+
+</head>
+<body>
+<div class="container p-3 mb-2 bg-primary text-white">
+    <h4>filter by name</h4>
+    <form th:action="@{/signup}" th:object="${user}" method="post">
+        <input type="text" th:field="${user.username}" placeholder="enter your name:"/>
+        <input type="password" th:field="${user.password}" placeholder="choose your password:"/>
+        <input type="hidden" th:field="${user.role}" th:value="USER">
+        <input type="submit" value="Submit"/>
+    </form>
+</div>
+</body>
+</html>
