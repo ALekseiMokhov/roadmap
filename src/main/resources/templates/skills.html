@@ -10,7 +10,7 @@
     <div th:insert="~{fragments/header}"></div>
 </head>
 <body>
-<div class="container p-3 mb-2 bg-info text-white">
+<div class="container-fluid p-3 mb-2 bg-info text-white">
     <div class="row">
         <div id="title">
             <h1>Reactive java skills</h1>
@@ -50,21 +50,21 @@
     <div>
         <h4>filter by priority</h4>
         <form th:action="@{/skill/priority}" th:object="${skill}" method="post">
-            <input type="text" th:field="${skill.priority}" placeholder="choose by skill priority"/>
+            <input type="text" th:field="${skill.priority}"placeholder="choose by skill priority"/>
             <input type="submit" value="Submit"/>
         </form>
     </div>
     <div sec:authorize ="hasRole('ADMIN')">
         <h4>add skill</h4>
         <form th:action="@{/skill/add}" th:object="${skill}" method="post">
-            <input type="text"  class="form-control" th:field="${skill.name}" placeholder="choose skill name"/>
+            <input type="text"  class="form-control-sm" th:field="${skill.name}" placeholder="choose skill name"/>
             <!--<input type="text" th:field="${skill.level}" placeholder="choose skill level"/>-->
-            <select name="level" class="form-control form-control-sm">
+            <select name="level" class="form-control-sm">
                 <option value="" disabled selected hidden> select skill level</option>
                 <option value="A" th:selected="${skill.level eq 'A'}">A</option>
                 <option value="B" th:selected="${skill.level eq 'B'}">B</option>
             </select>
-            <input type="text" class="form-control" th:field="${skill.priority}" placeholder="choose skill priority"/>
+            <input type="text" class="form-control-sm" th:field="${skill.priority}" placeholder="choose skill priority"/>
             <input type="submit" value="Submit"/> <input type="reset" value="Reset"/>
         </form>
     </div>

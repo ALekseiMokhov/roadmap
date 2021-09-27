@@ -6,17 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link data-th-href="@{/css/bootstrap.min.css}" rel="stylesheet">
     <link data-th-href="@{/css/main.css}" rel="stylesheet">
+
     <div th:insert="~{fragments/header}"/>
 </head>
+
 <body>
-<div class="container p-3 mb-2 bg-info text-white">
-    <h4>contact me:</h4>
-    <form th:action="@{/mail/send}" th:object="${messageEvent}" method="post">
+<div class="container-fluid p-3 mb-2 bg-info text-white">
+
+<!--    <form th:action="@{/mail/send}" th:object="${messageEvent}" method="post">
         <div> <input type="email" th:field="${messageEvent.from}" placeholder="enter your email"/></div>
         <div>
             <textarea class="form-control" th:field="${messageEvent.text}" placeholder="enter your message"/></div>
-        <input type="submit" value="Submit"/>
-    </form>
+        <input class="button" text="blue" type="submit" value="Submit"/>
+    </form>-->
 </div>
 </body>
 </html>

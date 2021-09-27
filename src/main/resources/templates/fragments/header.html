@@ -5,21 +5,34 @@
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
     <!--bootstrap-->
     <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
           integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" rel="stylesheet">
 
     <link href="/static/css" rel="main">
-    <div class="container p-3 mb-2 bg-info text-white">
+    <div class="container-fluid a p-3 mb-2 bg-info text-white">
         <button class="button"><a href="/">home</a></button>
         <button class="button"><a href="/skill">skills</a></button>
+        <button class="button"><a href="/cv">cv</a></button>
         <button class="button"> <a href="/oauth2/authorization/github">github oauth</a></button>
         <button class="button"><a href="/logout">logout</a></button>
-        <a class="w-10 w-lg-5 button btn-primary" href="https://github.com/ALekseiMokhov">github</a>
-        <a class="w-10 w-lg-5 button btn-primary" href="/mail">e-mail</a>
+        <a class="w-10 w-lg-5 button btn-primary" th:href="@{https://github.com/ALekseiMokhov}">my github</a>
+        <a class="w-10 w-lg-5 button btn-primary" href="/mail">e-mail me</a>
         <img width="120px" height="50px" th:src="@{/png/duke.png}" align="right"/>
+<!--
+       <div th:text="${#authentication.name}"></div>
+-->
+<!--
+        <span th:text="${#request.userPrincipal}"></span>
+-->
+        <div sec:authorize="isAuthenticated()">
+            Authenticated user roles:
+            Logged user: <span sec:authentication="name"></span> |
+            Roles: <span sec:authentication="principal.authorities"></span>
+        </div>
     </div>
+
 </div>
 </body>
 </html>

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,9 +10,11 @@
     <div th:insert="~{fragments/header}"></div>
 
 </head>
+
 <body>
-<div class="container p-3 mb-2 bg-primary text-white">
+<div class="container-fluid p-3 mb-2 bg-info text-white">
     <img src="png/photo-min.png" class="img-fluid rounded mx-auto d-block border border-dark">
 </div>
+<div th:insert="~{fragments/footer}"></div>
 </body>
 </html>

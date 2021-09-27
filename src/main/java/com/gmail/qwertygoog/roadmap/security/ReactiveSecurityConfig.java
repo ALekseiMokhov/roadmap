@@ -20,15 +20,19 @@ public class ReactiveSecurityConfig {
         return http
                 .csrf().disable()
                 .formLogin()
+                .loginPage("/signin")
                 .and()
                 .authorizeExchange()
-                .pathMatchers("/", "/signup", "/send", "/css/**", "/png/**")
+                .pathMatchers("/", "/signup", "/send", "/css/**", "/png/**","/signin")
                 .permitAll()
                 .anyExchange().authenticated()
                 .and()
                 .oauth2Login()
                 .and()
                 .exceptionHandling()
+                .and()
+                .logout()
+                    .logoutUrl("/logout")
                 .and()
                 .build();
     }
